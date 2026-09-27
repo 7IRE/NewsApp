@@ -30,7 +30,7 @@ fun OnBoardingPage(
     modifier: Modifier = Modifier,
     page: Page
 ){
-    Column(modifier = modifier.fillMaxSize()) {
+    Column(modifier = modifier) {
         Image(modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight(fraction = 0.6f)
