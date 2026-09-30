@@ -16,31 +16,39 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
+import com.loc.newsapp.presentation.navgraph.navGraph
 import com.loc.newsapp.domain.usecases.AppEntryUseCases
 import com.loc.newsapp.presentation.OnboardingViewModel
 import com.loc.newsapp.presentation.onboarding.OnBoardingScreen
 import com.loc.newsapp.ui.theme.NewsAppTheme
+import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @Inject
-    lateinit var  appEntryUseCases: AppEntryUseCases
+    val viewModel by viewModels<MainViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window,false)
-        installSplashScreen()
-        lifecycleScope.launch {
-            appEntryUseCases.readAppEntry().collect {
-                Log.d("Test" , it.toString())
+        installSplashScreen().apply {
+            setKeepOnScreenCondition {
+                viewModel.splashCondition
             }
         }
+
         setContent {
             NewsAppTheme {
                 Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)){
+                    val startDestination = viewModel.StartDestination
+
+                    navGraph(startDestination = startDestination)
+
                     val viewModel : OnboardingViewModel = hiltViewModel()
                     OnBoardingScreen(
                         event = viewModel::onEvent
