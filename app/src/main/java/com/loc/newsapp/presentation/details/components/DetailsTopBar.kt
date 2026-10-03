@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -36,18 +35,18 @@ fun DetailsTopBar(
         navigationIconContentColor = colorResource(R.color.body)
     ),
         navigationIcon = {
-            IconButton(onClick = {onBackClick}) {
+            IconButton(onClick = {onBackClick()}) {
                 Icon(painter = painterResource(R.drawable.ic_back_arrow), contentDescription = null)
             }
         },
         actions = {
-            IconButton(onClick = {onBookmarkClick}) {
+            IconButton(onClick = {onBookmarkClick()}) {
                 Icon(painter = painterResource(R.drawable.ic_bookmark), contentDescription = null)
             }
-            IconButton(onClick = {onShareClick}) {
+            IconButton(onClick = {onShareClick()}) {
                 Icon(imageVector = Icons.Default.Share, contentDescription = null)
             }
-            IconButton(onClick = {onBrowsingClick}) {
+            IconButton(onClick = {onBrowsingClick()}) {
                 Icon(painter = painterResource(R.drawable.ic_network), contentDescription = null)
             }
 

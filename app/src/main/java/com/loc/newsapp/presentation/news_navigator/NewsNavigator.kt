@@ -77,7 +77,7 @@ fun NewsNavigator(){
     }
     ) {
         val bottomPadding = it.calculateBottomPadding()
-        NavHost(navController = navController,startDestination = Route.HomeScreen.route,modifier = Modifier.padding(bottomPadding)){
+        NavHost(navController = navController,startDestination = Route.HomeScreen.route,modifier = Modifier.padding(bottom = it.calculateBottomPadding())){
             composable(route = Route.HomeScreen.route){
                 val viewModel: HomeViewModel = hiltViewModel()
                 val articles = viewModel.news.collectAsLazyPagingItems()

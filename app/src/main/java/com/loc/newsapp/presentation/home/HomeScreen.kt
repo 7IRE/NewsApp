@@ -51,6 +51,6 @@ fun HomeScreen(articles : LazyPagingItems<Article>,navigateToSearch:()->Unit , n
         Spacer(modifier = Modifier.height(MediumPadding1))
         Text(text = titles,modifier = Modifier.fillMaxWidth().padding(start=MediumPadding1).basicMarquee(), fontSize = 12.sp,color = colorResource(R.color.placeholder))
         Spacer(modifier = Modifier.height(MediumPadding1))
-        ArticlesList(modifier = Modifier.padding(horizontal = MediumPadding1) , articles = articles , onClick = {navigateToDetails})
+        ArticlesList(modifier = Modifier.padding(horizontal = MediumPadding1) , articles = articles , onClick = {navigateToDetails(it)})
     }
 }

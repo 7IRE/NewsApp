@@ -12,23 +12,23 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
 
 @HiltViewModel
 class MainViewModel @Inject constructor( private val  appEntryUseCases: AppEntryUseCases)  : ViewModel(){
     var splashCondition by mutableStateOf(true)
         private set
-    var StartDestination by mutableStateOf(Route.AppStartNavigation.route)
+    var startDestination by mutableStateOf(Route.AppStartNavigation.route)
         private set
 
     init {
         appEntryUseCases.readAppEntry().onEach { shouldStartFromHomeScreen ->
-            if(shouldStartFromHomeScreen) {
-                StartDestination = Route.NewsNavigation.route
+            startDestination = if(shouldStartFromHomeScreen) {
+                Route.NewsNavigation.route
+            } else{
+                Route.AppStartNavigation.route
             }
-            else{
-                StartDestination = Route.AppStartNavigation.route
-            }
-            delay(300)
+            delay(300.milliseconds)
             splashCondition =false
         }.launchIn(viewModelScope       )
     }
